@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Music, Brain, Heart, Book, Car, Users } from "lucide-react";
+import HeartBurst from "../components/HeartBurst";
 
 export default function Home() {
   const containerVariants = {
@@ -105,20 +106,31 @@ export default function Home() {
 
           {/* Photo Placeholder with Enhanced Animation */}
           <motion.div
-            className="relative"
+            className="relative flex justify-center items-center"
             variants={itemVariants}
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
+            {/* Heart Burst Animations */}
+            <div className="absolute -left-16 top-1/2 transform -translate-y-1/2">
+              <HeartBurst className="w-24 h-48" delay={3} />
+            </div>
+            <div className="absolute -right-16 top-1/2 transform -translate-y-1/2">
+              <HeartBurst className="w-24 h-48" delay={3.5} />
+            </div>
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-8">
+              <HeartBurst className="w-32 h-24" delay={4} />
+            </div>
+
             <motion.img
               src="https://via.placeholder.com/400x400/D97706/FFFFFF?text=Dad's+Photo"
               alt="Birthday Dad"
-              className="mx-auto rounded-full shadow-2xl border-8 border-white"
+              className="mx-auto rounded-full shadow-2xl border-8 border-white relative z-10"
               whileHover={{ rotate: [0, -5, 5, 0] }}
               transition={{ duration: 0.5 }}
             />
             <motion.div
-              className="absolute -top-4 -right-4 text-4xl"
+              className="absolute -top-4 -right-4 text-4xl z-20"
               animate={{
                 rotate: [0, 10, -10, 0],
                 scale: [1, 1.1, 1, 1.1, 1],
@@ -132,7 +144,7 @@ export default function Home() {
               🎂
             </motion.div>
             <motion.div
-              className="absolute -bottom-4 -left-4 text-4xl"
+              className="absolute -bottom-4 -left-4 text-4xl z-20"
               animate={{
                 rotate: [0, -10, 10, 0],
                 scale: [1, 1.2, 1, 1.2, 1],
@@ -172,6 +184,22 @@ export default function Home() {
             >
               - In honor of a man who embodies both
             </motion.p>
+
+            {/* Music Note */}
+            <motion.div
+              className="text-center mt-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 3, duration: 1 }}
+            >
+              <p className="text-amber-600 text-xs flex items-center justify-center space-x-2">
+                <Music className="w-4 h-4" />
+                <span>
+                  Listen to "Songbird" by Kenny G in the bottom right corner
+                </span>
+                <Music className="w-4 h-4" />
+              </p>
+            </motion.div>
           </motion.div>
 
           {/* Quick Stats with Lucide Icons and Staggered Animation */}

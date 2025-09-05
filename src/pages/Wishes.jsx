@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, Send, MessageCircle, Gift, Star, Plus } from "lucide-react";
+import HeartBurst from "../components/HeartBurst";
 
 export default function Wishes() {
   const [wishes, setWishes] = useState([
@@ -36,11 +37,17 @@ export default function Wishes() {
     relationship: "",
   });
 
+  const [showCelebration, setShowCelebration] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (newWish.name && newWish.message) {
       setWishes([...wishes, newWish]);
       setNewWish({ name: "", message: "", relationship: "" });
+
+      // Trigger celebration animation
+      setShowCelebration(true);
+      setTimeout(() => setShowCelebration(false), 3000);
     }
   };
 
@@ -93,14 +100,31 @@ export default function Wishes() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto relative overflow-visible">
         {/* Header */}
         <motion.div
-          className="text-center mb-12"
+          className="text-center mb-12 relative overflow-visible"
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
         >
+          {/* Celebration Hearts */}
+          {showCelebration && (
+            <div className="fixed inset-0 pointer-events-none z-50 flex items-center justify-center">
+              <div className="relative">
+                <div className="absolute -left-32 top-0">
+                  <HeartBurst className="w-24 h-24" />
+                </div>
+                <div className="absolute -right-32 top-0">
+                  <HeartBurst className="w-24 h-24" />
+                </div>
+                <div className="absolute -top-16 left-1/2 transform -translate-x-1/2">
+                  <HeartBurst className="w-32 h-32" />
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="flex justify-center items-center space-x-3 mb-4">
             <motion.div
               whileHover={{
@@ -127,6 +151,11 @@ export default function Wishes() {
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-amber-800 mb-4">
             Birthday Wishes
+            {showCelebration && (
+              <span className="ml-4 text-2xl animate-bounce">
+                🎉 CELEBRATION! 🎉
+              </span>
+            )}
           </h1>
           <p className="text-xl text-amber-700">
             Heartfelt messages from family and friends

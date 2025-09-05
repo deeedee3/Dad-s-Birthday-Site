@@ -8,6 +8,7 @@ import {
   Car,
   BookOpen,
 } from "lucide-react";
+import HeartBurst from "../components/HeartBurst";
 
 export default function Gallery() {
   const photoCategories = [
@@ -232,7 +233,7 @@ export default function Gallery() {
           }}
         >
           <motion.div
-            className="flex justify-center mb-4"
+            className="flex justify-center mb-4 relative"
             whileHover={{
               rotate: [0, -5, 5, 0],
               scale: 1.1,
@@ -240,23 +241,38 @@ export default function Gallery() {
             transition={{ duration: 0.5 }}
           >
             <Heart className="w-12 h-12 text-yellow-300" />
+
+            {/* Subtle heart bursts around the icon */}
+            <div className="absolute inset-0 pointer-events-none">
+              <HeartBurst size="small" delay={0} />
+            </div>
+            <div className="absolute inset-0 pointer-events-none">
+              <HeartBurst size="small" delay={1000} />
+            </div>
           </motion.div>
           <h3 className="text-2xl font-bold mb-4">Share Your Memories!</h3>
           <p className="text-amber-100 mb-6">
             Have a special photo with Dad? We'd love to add it to this gallery!
           </p>
-          <motion.button
-            className="bg-white text-amber-700 px-6 py-3 rounded-lg font-semibold hover:bg-amber-50 transition-colors flex items-center space-x-2 mx-auto"
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
-            }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <Upload className="w-5 h-5" />
-            <span>Submit a Photo</span>
-          </motion.button>
+          <div className="relative inline-block">
+            <motion.button
+              className="bg-white text-amber-700 px-6 py-3 rounded-lg font-semibold hover:bg-amber-50 transition-colors flex items-center space-x-2"
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
+              }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <Upload className="w-5 h-5" />
+              <span>Submit a Photo</span>
+            </motion.button>
+
+            {/* Heart burst on hover */}
+            <div className="absolute inset-0 pointer-events-none">
+              <HeartBurst size="small" delay={500} />
+            </div>
+          </div>
         </motion.div>
       </div>
     </motion.div>
